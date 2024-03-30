@@ -1,35 +1,35 @@
 # RMVPE
-## 1. 训练
-数据集是我处理过的 mir1k 和 ptdb 混合数据集, 外加 m4singer 声码器合成数据，统一精度到 10ms 一帧
+## 1. Training
+The dataset consists of a mixture of processed mir1k and ptdb data, along with synthesized data from the m4singer vocoder, all standardized to 10ms per frame.
 
-训练集放到`Hybrid/train`目录下
+Place the training set in the `Hybrid/train` directory.
 
-测试集放到`Hybrid/test`目录下
+Place the test set in the `Hybrid/test` directory.
 
-其中`wav`文件和`pv`文件同目录
+The `wav` files and `pv` files should be in the same directory.
 
-执行训练
+Execute training:
 ```bash
 python train.py 
 ```
-训练参数在文件里自己改
-## 2. 可视化
+Modify training parameters in the file as needed.
+
+## 2. Visualization
 ```bash
 tensorboard --logdir=runs
 ```
-## 3. 测试
+## 3. Testing
 ```bash
-# 查看使用方法
+# See usage
 python main.py -h 
 ```
 
-## 4. 导出
+## 4. Export
+Exporting the model to ONNX format requires PyTorch nightly (>=2.1.0), otherwise the aten::stft operator cannot be exported.
 
-将模型导出到 ONNX 格式需要使用 PyTorch nightly (>=2.1.0)，否则将无法导出 aten::stft 算子
-
-同时，由于 PyTorch 目前的限制，hop_length 参数只能为静态，即一个 ONNX 模型只能有一个 hop_length
+Additionally, due to current limitations in PyTorch, the hop_length parameter must be static, meaning an ONNX model can only have one hop_length.
 
 ```bash
-# 查看使用方法
+# See usage
 python export.py -h
 ```
